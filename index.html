@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuoteBoosters — Daily Motivation Delivered to Your Inbox</title>
+    <meta name="description" content="Start every day inspired. QuoteBoosters delivers handpicked motivational quotes to your inbox each morning. Free to join.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --warm-cream: #FDF8F0;
+            --deep-sage: #3A5A40;
+            --light-sage: #588157;
+            --soft-gold: #DAA520;
+            --warm-brown: #5C4033;
+            --off-white: #FEFCF8;
+            --text-dark: #2C2C2C;
+            --text-muted: #6B6B6B;
+            --border-light: #E8E0D4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--warm-cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* NAV */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            color: var(--deep-sage);
+            text-decoration: none;
+        }
+        .logo span { color: var(--soft-gold); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--deep-sage); }
+
+        /* HERO */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 5% 5rem;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3.5rem;
+            line-height: 1.15;
+            color: var(--deep-sage);
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 em {
+            font-style: italic;
+            color: var(--light-sage);
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 480px;
+        }
+        .cta-form {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 460px;
+        }
+        .cta-form input {
+            flex: 1;
+            padding: 1rem 1.25rem;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            background: var(--off-white);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .cta-form input:focus { border-color: var(--deep-sage); }
+        .cta-form button {
+            padding: 1rem 2rem;
+            background: var(--deep-sage);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            white-space: nowrap;
+        }
+        .cta-form button:hover { background: var(--light-sage); transform: translateY(-1px); }
+        .consent-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+            max-width: 460px;
+        }
+        .consent-text a { color: var(--deep-sage); }
+
+        /* QUOTE CARD */
+        .quote-card {
+            background: var(--off-white);
+            border: 2px solid var(--border-light);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(58, 90, 64, 0.08);
+        }
+        .quote-card::before {
+            content: '\201C';
+            font-family: 'DM Serif Display', serif;
+            font-size: 6rem;
+            color: var(--soft-gold);
+            position: absolute;
+            top: 0.5rem;
+            left: 1.5rem;
+            line-height: 1;
+            opacity: 0.5;
+        }
+        .quote-card blockquote {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            line-height: 1.5;
+            color: var(--warm-brown);
+            margin-bottom: 1.5rem;
+            padding-top: 1rem;
+        }
+        .quote-card cite {
+            font-style: normal;
+            font-weight: 600;
+            color: var(--deep-sage);
+            font-size: 0.95rem;
+        }
+        .quote-label {
+            display: inline-block;
+            background: var(--deep-sage);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* HOW IT WORKS */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 5%;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+        .section-header h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            color: var(--deep-sage);
+            margin-bottom: 0.75rem;
+        }
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .step {
+            background: var(--off-white);
+            border: 2px solid var(--border-light);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .step:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(58, 90, 64, 0.08); }
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px; height: 48px;
+            background: var(--deep-sage);
+            color: #fff;
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            border-radius: 50%;
+            margin-bottom: 1.25rem;
+        }
+        .step h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--warm-brown);
+        }
+        .step p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* FEATURES */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        .feature {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+            background: var(--off-white);
+            border: 2px solid var(--border-light);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+        .feature-icon {
+            flex-shrink: 0;
+            width: 44px; height: 44px;
+            background: linear-gradient(135deg, var(--deep-sage), var(--light-sage));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .feature h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+            color: var(--warm-brown);
+        }
+        .feature p { color: var(--text-muted); font-size: 0.92rem; }
+
+        /* TESTIMONIALS */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .testimonial {
+            background: var(--off-white);
+            border: 2px solid var(--border-light);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+        .stars { color: var(--soft-gold); font-size: 1rem; margin-bottom: 1rem; }
+        .testimonial p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+            font-style: italic;
+        }
+        .testimonial-author {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--warm-brown);
+        }
+
+        /* CTA BANNER */
+        .cta-banner {
+            background: var(--deep-sage);
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            text-align: center;
+            color: #fff;
+            margin: 2rem 0;
+        }
+        .cta-banner h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+        }
+        .cta-banner p {
+            opacity: 0.85;
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+        }
+        .cta-banner .cta-form input {
+            background: #fff;
+            border-color: transparent;
+        }
+        .cta-banner .cta-form button {
+            background: var(--soft-gold);
+            color: var(--text-dark);
+        }
+        .cta-banner .cta-form button:hover { background: #c9991a; }
+        .cta-banner .consent-text { color: rgba(255,255,255,0.65); }
+        .cta-banner .consent-text a { color: rgba(255,255,255,0.85); }
+
+        /* FOOTER */
+        footer {
+            border-top: 2px solid var(--border-light);
+            padding: 3rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-brand .logo { font-size: 1.3rem; display: inline-block; margin-bottom: 0.75rem; }
+        .footer-brand p { color: var(--text-muted); font-size: 0.9rem; max-width: 280px; }
+        .footer-col h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--warm-brown);
+            margin-bottom: 1rem;
+        }
+        .footer-col a {
+            display: block;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--deep-sage); }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-light);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .footer-bottom a { color: var(--text-muted); text-decoration: none; }
+        .footer-bottom a:hover { color: var(--deep-sage); }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; padding: 3rem 5% 2rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .quote-card { max-width: 480px; }
+            .steps, .features, .testimonials { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2rem; }
+            .cta-form { flex-direction: column; }
+            .nav-links { gap: 1rem; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAV -->
+    <nav>
+        <a href="/" class="logo">Quote<span>Boosters</span></a>
+        <div class="nav-links">
+            <a href="#how">How It Works</a>
+            <a href="#features">Features</a>
+            <a href="/contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div>
+            <h1>Start Every Morning with <em>Words That Move You</em></h1>
+            <p>Join thousands of readers who begin their day with a handpicked motivational quote delivered straight to their inbox. Completely free.</p>
+            <div class="cta-form">
+                <input type="email" placeholder="Enter your email address" aria-label="Email address">
+                <button type="button">Get Started</button>
+            </div>
+            <p class="consent-text">By subscribing, you agree to receive daily emails from us. You can unsubscribe at any time with one click. Read our <a href="/privacy">Privacy Policy</a>.</p>
+        </div>
+        <div class="quote-card">
+            <span class="quote-label">Today's Quote</span>
+            <blockquote>The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.</blockquote>
+            <cite>— Steve Jobs</cite>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section" id="how">
+        <div class="section-header">
+            <h2>How It Works</h2>
+            <p>Three simple steps to start your inspired mornings.</p>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h3>Sign Up for Free</h3>
+                <p>Enter your email and confirm your subscription. No credit card needed, ever.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h3>Receive Daily Quotes</h3>
+                <p>Every morning, you'll find a curated motivational quote in your inbox at 7:00 AM.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h3>Feel the Difference</h3>
+                <p>Start your day with intention and positivity. Share your favorites with friends.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+        <div class="section-header">
+            <h2>Why Readers Love Us</h2>
+            <p>A daily dose of inspiration, thoughtfully delivered.</p>
+        </div>
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">✉️</div>
+                <div>
+                    <h3>One Email, Every Morning</h3>
+                    <p>No spam, no promotions. Just one beautifully crafted quote to set the tone for your day.</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                <div>
+                    <h3>Hand-Curated Content</h3>
+                    <p>Every quote is selected by our editorial team from history's greatest thinkers, leaders, and creators.</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔓</div>
+                <div>
+                    <h3>100% Free, Forever</h3>
+                    <p>No hidden fees, no premium tiers. Inspiration should be accessible to everyone.</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">👋</div>
+                <div>
+                    <h3>Easy Unsubscribe</h3>
+                    <p>Every email includes a one-click unsubscribe link. No questions asked, no hoops to jump through.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section">
+        <div class="section-header">
+            <h2>What Our Readers Say</h2>
+            <p>Thousands of people start their day with QuoteBoosters.</p>
+        </div>
+        <div class="testimonials">
+            <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <p>"I look forward to this email every single morning. It's become part of my routine — coffee and my QuoteBoosters quote."</p>
+                <div class="testimonial-author">— Sarah M., Austin, TX</div>
+            </div>
+            <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <p>"Simple, clean, and actually inspiring. No clickbait, no upsells. Just a great quote. Exactly what I needed."</p>
+                <div class="testimonial-author">— James L., Toronto, ON</div>
+            </div>
+            <div class="testimonial">
+                <div class="stars">★★★★★</div>
+                <p>"I've shared so many of these with my team at work. It's a small thing that makes a real difference in our mornings."</p>
+                <div class="testimonial-author">— Priya K., London, UK</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="section">
+        <div class="cta-banner">
+            <h2>Ready to Transform Your Mornings?</h2>
+            <p>Join 12,000+ readers who start every day with purpose and motivation.</p>
+            <div class="cta-form" style="max-width:460px; margin:0 auto;">
+                <input type="email" placeholder="Your email address" aria-label="Email address">
+                <button type="button">Subscribe Free</button>
+            </div>
+            <p class="consent-text" style="max-width:460px; margin:0.75rem auto 0;">We respect your privacy. Unsubscribe anytime. See our <a href="/privacy">Privacy Policy</a>.</p>
+        </div>
+    </section>
+
+    <!-- SUCCESS TOAST -->
+    <div id="toast" style="
+        position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px);
+        background: var(--deep-sage); color: #fff; padding: 1rem 2rem; border-radius: 14px;
+        font-weight: 600; font-size: 0.95rem; box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        z-index: 999; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s;
+        opacity: 0; display: flex; align-items: center; gap: 0.6rem;
+    ">
+        <span style="font-size:1.3rem;">✓</span>
+        <span id="toast-msg">You're subscribed! Check your inbox to confirm.</span>
+    </div>
+
+    <script>
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            toast.style.transform = 'translateX(-50%) translateY(0)';
+            toast.style.opacity = '1';
+            setTimeout(() => {
+                toast.style.transform = 'translateX(-50%) translateY(100px)';
+                toast.style.opacity = '0';
+            }, 4000);
+        }
+
+        document.querySelectorAll('.cta-form').forEach(form => {
+            const btn = form.querySelector('button');
+            const input = form.querySelector('input');
+            btn.addEventListener('click', () => {
+                const email = input.value.trim();
+                if (!email || !email.includes('@') || !email.includes('.')) {
+                    input.style.borderColor = '#c0392b';
+                    input.setAttribute('placeholder', 'Please enter a valid email');
+                    setTimeout(() => { input.style.borderColor = ''; input.setAttribute('placeholder', 'Enter your email address'); }, 2000);
+                    return;
+                }
+                btn.textContent = 'Sending...';
+                btn.disabled = true;
+                setTimeout(() => {
+                    input.value = '';
+                    btn.textContent = 'Subscribed ✓';
+                    btn.style.background = '#2d7a3a';
+                    showToast("You're subscribed! Check your inbox to confirm.");
+                    setTimeout(() => { btn.textContent = 'Get Started'; btn.disabled = false; btn.style.background = ''; }, 3000);
+                }, 800);
+            });
+        });
+    </script>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="/" class="logo">Quote<span>Boosters</span></a>
+                <p>Daily motivation delivered to your inbox. Curated with care, sent with love.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="/">Home</a>
+                <a href="/contact">Contact Us</a>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="/contact">Help &amp; FAQ</a>
+                <a href="mailto:support@quoteboosters.com">support@quoteboosters.com</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2025 QuoteBoosters. All rights reserved.</span>
+            <div>
+                <a href="/privacy">Privacy</a> &nbsp;·&nbsp; <a href="/terms">Terms</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
